@@ -1,32 +1,57 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import {Grid, Button} from '@material-ui/core';
-import './App.css';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
-class App extends Component {
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    height: 140,
+    width: 100,
+  },
+  control: {
+    padding: theme.spacing.unit * 2,
+  },
+});
+
+class App extends React.Component {
+  state = {
+    spacing: '16',
+  };
+
   render() {
+    const { classes } = this.props;
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          <Button>
-            Hola
-          </Button>
-        </header>
-      </div>
+		<Grid container className={classes.root} spacing={16}>
+			<Grid item xs={12}>
+				<Paper className={classes.control}>
+					<Grid container>
+						<Grid item>
+							Image will go here
+						</Grid>
+					</Grid>
+				</Paper>
+			</Grid>
+			<Grid item xs={12}>
+				<Paper className={classes.control}>
+					<Grid container>
+						<Grid item>
+							Pixelation options will go here
+						</Grid>
+					</Grid>
+				</Paper>
+			</Grid>
+      	</Grid>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(App);
