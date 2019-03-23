@@ -8,9 +8,8 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
-    height: 140,
-    width: 100,
+  image: {
+    width: '50%',
   },
   control: {
     padding: theme.spacing.unit * 2,
@@ -27,15 +26,17 @@ class Layout extends React.Component {
 
     return (
 		<div>
-			<Grid container className={classes.root} spacing={16}>
+            <Grid container className={classes.root} spacing={16}>
 				<Grid item xs={12}>
-					<Paper className={classes.control}>
-						<Grid container>
-							<Grid item>
-								Image will go here
-							</Grid>
-						</Grid>
-					</Paper>
+                    <Grid container justify="center">
+                        <Paper className={classes.image}>
+                            <Grid container>
+                                <Grid item>
+                                    Image will go here
+                                </Grid>
+                            </Grid>
+                        </Paper>
+                    </Grid>
 				</Grid>
 				<Grid item xs={12}>
 					<Paper className={classes.control}>

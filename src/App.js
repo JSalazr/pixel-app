@@ -8,7 +8,9 @@ class App extends React.Component {
     return (
 		<div>
 			<TopBar />
-			<Layout />
+			<div style={{'padding': '15px'}}>
+				<Layout />
+			</div>
 		</div>	
     );
   }
