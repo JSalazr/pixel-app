@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import ActionButton from './actionButton';
 import UploadButton from './uploadButton';
 import ImageSettings from './imageSettings';
+import Mayre from 'mayre';
 
 const styles = theme => ({
   root: {
@@ -30,14 +32,22 @@ class Layout extends React.Component {
                 y: 0,
                 xSize: 0,
                 ySize: 0
-            }
+            },
+            isLoading: false
         };
     }
 
     setImage = (image64, imageSettings) => {
         this.setState({
             image: image64,
-            imageSettings: {...imageSettings}
+            imageSettings: {...imageSettings},
+            isLoading: false
+        });
+    }
+
+    setLoadingTrue = () => {
+        this.setState({
+            isLoading: true
         });
     }
 
@@ -55,7 +65,7 @@ class Layout extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { image, pixelSize, imageSettings } = this.state;
+        const { image, pixelSize, imageSettings, isLoading } = this.state;
 
         return (
             <div>
@@ -65,7 +75,11 @@ class Layout extends React.Component {
                             <Paper className={classes.image}>
                                 <Grid container justify="center">
                                     <Grid item>
-                                        <img src={image} alt=""/>
+                                        <Mayre of={
+                                            <CircularProgress />
+                                        } or={
+                                            <img src={image} alt=""/>
+                                        } when={isLoading} />
                                     </Grid>
                                 </Grid>
                                 <Grid container justify="center">
@@ -87,7 +101,7 @@ class Layout extends React.Component {
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container justify="center">
-                            <ActionButton setImage={this.setImage} image64={image} pixelSize={pixelSize} imageSettings={imageSettings}/>
+                            <ActionButton setImage={this.setImage} image64={image} pixelSize={pixelSize} imageSettings={imageSettings} setLoadingTrue={this.setLoadingTrue}/>
                         </Grid>
                     </Grid>
                 </Grid>
