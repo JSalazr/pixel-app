@@ -14,8 +14,8 @@ const styles = theme => ({
     const { classes } = props;
 
     const pixelateImage = () => {
-        const { image64, pixelSize, setImage } = props;
-        PixelateImage(image64, pixelSize).then((pixelatedImage) => {
+        const { image64, pixelSize, imageSettings, setImage } = props;
+        PixelateImage(image64, pixelSize, imageSettings).then((pixelatedImage) => {
             setImage(pixelatedImage);
         });
     }
@@ -31,6 +31,7 @@ const styles = theme => ({
     classes: PropTypes.object.isRequired,
     image64: PropTypes.string.isRequired,
     pixelSize: PropTypes.number.isRequired,
+    imageSettings: PropTypes.object.isRequired,
     setImage: PropTypes.func.isRequired
   };
   

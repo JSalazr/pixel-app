@@ -18,6 +18,12 @@ function UploadButton(props) {
     const { classes, setImage } = props;
 
     const convertToBase64 = () => {
+        setImage('', {
+            x: 0,
+            y: 0,
+            xSize: 0,
+            ySize: 0 
+        });
         const selectedFile = document.getElementById('contained-button-file').files[0];
         var reader = new FileReader();
         reader.readAsDataURL(selectedFile);

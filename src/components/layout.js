@@ -25,7 +25,12 @@ class Layout extends React.Component {
         this.state = {
             image: "",
             pixelSize: 5,
-            imageSettings: {}
+            imageSettings: {
+                x: 0,
+                y: 0,
+                xSize: 0,
+                ySize: 0
+            }
         };
     }
 
@@ -73,7 +78,7 @@ class Layout extends React.Component {
                     </Grid>
                     <Grid item xs={12}>
                         <Paper className={classes.control}>
-                            <Grid container>
+                            <Grid container justify="center">
                                 <Grid item>
                                     <ImageSettings setPixelSize={this.setPixelSize} setImageSettings={this.setImageSettings} pixelSize={pixelSize} imageSettings={imageSettings} />
                                 </Grid>
@@ -82,7 +87,7 @@ class Layout extends React.Component {
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container justify="center">
-                            <ActionButton setImage={this.setImage} image64={image} pixelSize={pixelSize}/>
+                            <ActionButton setImage={this.setImage} image64={image} pixelSize={pixelSize} imageSettings={imageSettings}/>
                         </Grid>
                     </Grid>
                 </Grid>
