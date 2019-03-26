@@ -21,17 +21,14 @@ const styles = theme => ({
     },
 });
 
-class TextFields extends React.Component {  
+class ImageSettings extends React.Component {  
     
-    handleSettingsChange = (field, setting, e) => {
-        if(setting)
-            this.props.handleChange('imageSettings')({...this.props.imageSettings, [field]: e.target.value});
-        else
-            this.props.handleChange('pixelSize')(e.target.value)
+    handlePixelSizeChange = (e) => {
+        this.props.setPixelSize(parseInt(e.target.value));
     }
 
     render() {
-      const { classes, imageSetting, pixelSize, handleChange } = this.props;
+      const { classes, imageSetting, pixelSize } = this.props;
   
       return (
         <form className={classes.container} noValidate autoComplete="off">
@@ -39,7 +36,7 @@ class TextFields extends React.Component {
                 id="pixel-size"
                 label="Pixel Size"
                 value={pixelSize}
-                onChange={(e) => handleChange('pixelSize', false, e)}
+                onChange={(e) => this.handlePixelSizeChange(e)}
                 type="number"
                 className={classes.textField}
                 InputLabelProps={{
@@ -52,11 +49,12 @@ class TextFields extends React.Component {
     }
   }
   
-  TextFields.propTypes = {
+  ImageSettings.propTypes = {
     classes: PropTypes.object.isRequired,
     imageSettings: PropTypes.object.isRequired,
     pixelSize: PropTypes.number.isRequired,
-    handleChange: PropTypes.func.isRequired
+    setPixelSize: PropTypes.func.isRequired,
+    setImageSettings: PropTypes.func.isRequired
   };
   
-  export default withStyles(styles)(TextFields);
+  export default withStyles(styles)(ImageSettings);

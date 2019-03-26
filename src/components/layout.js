@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import ActionButton from './actionButton';
 import UploadButton from './uploadButton';
+import ImageSettings from './imageSettings';
 
 const styles = theme => ({
   root: {
@@ -35,15 +36,21 @@ class Layout extends React.Component {
         });
     }
 
-    handleChange = field => value => {
+    setPixelSize = (value) => {
         this.setState({
-            [field]: value
+            pixelSize: value
+        });
+    }
+
+    setImageSettings = (value) => {
+        this.setState({
+            imageSettings: value
         });
     }
 
     render() {
         const { classes } = this.props;
-        const { image } = this.state;
+        const { image, pixelSize, imageSettings } = this.state;
 
         return (
             <div>
@@ -68,14 +75,14 @@ class Layout extends React.Component {
                         <Paper className={classes.control}>
                             <Grid container>
                                 <Grid item>
-                                    Pixelation options will go here
+                                    <ImageSettings setPixelSize={this.setPixelSize} setImageSettings={this.setImageSettings} pixelSize={pixelSize} imageSettings={imageSettings} />
                                 </Grid>
                             </Grid>
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container justify="center">
-                            <ActionButton setImage={this.setImage} image64={image}/>
+                            <ActionButton setImage={this.setImage} image64={image} pixelSize={pixelSize}/>
                         </Grid>
                     </Grid>
                 </Grid>
