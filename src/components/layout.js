@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import ActionButton from './actionButton';
 import UploadButton from './uploadButton';
+import ImageSettings from './imageSettings';
 
 const styles = theme => ({
   root: {
@@ -23,7 +24,13 @@ class Layout extends React.Component {
         super(props);
         this.state = {
             image: "",
-            imageSettings: {}
+            pixelSize: 5,
+            imageSettings: {
+                x: 0,
+                y: 0,
+                xSize: 0,
+                ySize: 0
+            }
         };
     }
 
@@ -34,9 +41,21 @@ class Layout extends React.Component {
         });
     }
 
+    setPixelSize = (value) => {
+        this.setState({
+            pixelSize: value
+        });
+    }
+
+    setImageSettings = (value) => {
+        this.setState({
+            imageSettings: value
+        });
+    }
+
     render() {
         const { classes } = this.props;
-        const { image } = this.state;
+        const { image, pixelSize, imageSettings } = this.state;
 
         return (
             <div>
@@ -46,7 +65,7 @@ class Layout extends React.Component {
                             <Paper className={classes.image}>
                                 <Grid container justify="center">
                                     <Grid item>
-                                        <img src={image} />
+                                        <img src={image} alt=""/>
                                     </Grid>
                                 </Grid>
                                 <Grid container justify="center">
@@ -59,16 +78,16 @@ class Layout extends React.Component {
                     </Grid>
                     <Grid item xs={12}>
                         <Paper className={classes.control}>
-                            <Grid container>
+                            <Grid container justify="center">
                                 <Grid item>
-                                    Pixelation options will go here
+                                    <ImageSettings setPixelSize={this.setPixelSize} setImageSettings={this.setImageSettings} pixelSize={pixelSize} imageSettings={imageSettings} />
                                 </Grid>
                             </Grid>
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container justify="center">
-                            <ActionButton setImage={this.setImage} image64={image}/>
+                            <ActionButton setImage={this.setImage} image64={image} pixelSize={pixelSize} imageSettings={imageSettings}/>
                         </Grid>
                     </Grid>
                 </Grid>

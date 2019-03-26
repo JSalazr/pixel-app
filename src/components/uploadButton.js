@@ -17,7 +17,18 @@ const styles = theme => ({
 function UploadButton(props) {
     const { classes, setImage } = props;
 
+    const onClickInput = (e) => {
+        e.target.value = '';
+    }
+
     const convertToBase64 = () => {
+        console.log("testing");
+        setImage('', {
+            x: 0,
+            y: 0,
+            xSize: 0,
+            ySize: 0 
+        });
         const selectedFile = document.getElementById('contained-button-file').files[0];
         var reader = new FileReader();
         reader.readAsDataURL(selectedFile);
@@ -44,6 +55,7 @@ function UploadButton(props) {
                 id="contained-button-file"
                 type="file"
                 onChange={convertToBase64}
+                onClick={onClickInput}
             />
             <label htmlFor="contained-button-file">
                 <Button variant="contained" component="span" className={classes.button}>
