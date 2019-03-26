@@ -22,13 +22,15 @@ class Layout extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            image: ""
+            image: "",
+            imageSettings: {}
         };
     }
 
-    setImage = (image64) => {
+    setImage = (image64, imageSettings) => {
         this.setState({
-            image: image64
+            image: image64,
+            imageSettings: {...imageSettings}
         });
     }
 

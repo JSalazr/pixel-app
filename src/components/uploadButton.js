@@ -17,11 +17,23 @@ const styles = theme => ({
 function UploadButton(props) {
     const { classes, setImage } = props;
 
-    const convertToBase64 = (input) => {
+    const convertToBase64 = () => {
         const selectedFile = document.getElementById('contained-button-file').files[0];
         var reader = new FileReader();
         reader.readAsDataURL(selectedFile);
-        reader.onload = () => setImage(reader.result);
+        reader.onload = (e) => {
+            let image = new Image();
+            image.src = e.target.result;
+            image.onload = function() {
+                let settings = {
+					x: 0,
+					y: 0,
+					xSize: this.width,
+					ySize: this.height
+				};
+                setImage(reader.result, settings);
+            }
+        }
     }
 
     return (
