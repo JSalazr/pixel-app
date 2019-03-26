@@ -16,7 +16,7 @@ const styles = theme => ({
     const pixelateImage = () => {
         const { image64, pixelSize, imageSettings, setImage } = props;
         PixelateImage(image64, pixelSize, imageSettings).then((pixelatedImage) => {
-            setImage(pixelatedImage);
+            setImage(pixelatedImage, imageSettings);
         });
     }
 
