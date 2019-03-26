@@ -19,49 +19,60 @@ const styles = theme => ({
 });
 
 class Layout extends React.Component {
-  state = {
-    spacing: '16',
-  };
+    constructor(props) {
+        super(props);
+        this.state = {
+            image: ""
+        };
+    }
 
-  render() {
-    const { classes } = this.props;
+    setImage = (image64) => {
+        this.setState({
+            image: image64
+        });
+    }
 
-    return (
-		<div>
-            <Grid container className={classes.root} spacing={16}>
-				<Grid item xs={12}>
-                    <Grid container justify="center">
-                        <Paper className={classes.image}>
+    render() {
+        const { classes } = this.props;
+        const { image } = this.state;
+
+        return (
+            <div>
+                <Grid container className={classes.root} spacing={16}>
+                    <Grid item xs={12}>
+                        <Grid container justify="center">
+                            <Paper className={classes.image}>
+                                <Grid container justify="center">
+                                    <Grid item>
+                                        <img src={image} />
+                                    </Grid>
+                                </Grid>
+                                <Grid container justify="center">
+                                    <Grid item>
+                                        <UploadButton setImage={this.setImage}/>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Paper className={classes.control}>
                             <Grid container>
                                 <Grid item>
-                                    Image will go here
-                                </Grid>
-                                <Grid item>
-                                    <UploadButton />
+                                    Pixelation options will go here
                                 </Grid>
                             </Grid>
                         </Paper>
                     </Grid>
-				</Grid>
-				<Grid item xs={12}>
-					<Paper className={classes.control}>
-						<Grid container>
-							<Grid item>
-								Pixelation options will go here
-							</Grid>
-						</Grid>
-					</Paper>
-				</Grid>
-                <Grid item xs={12}>
-                    <Grid container justify="center">
-                        <ActionButton />
+                    <Grid item xs={12}>
+                        <Grid container justify="center">
+                            <ActionButton />
+                        </Grid>
                     </Grid>
-				</Grid>
-			</Grid>
-		</div>
-		
-    );
-  }
+                </Grid>
+            </div>    
+        );
+    }
 }
 
 Layout.propTypes = {
