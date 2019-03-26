@@ -65,7 +65,7 @@ class Layout extends React.Component {
                             <Paper className={classes.image}>
                                 <Grid container justify="center">
                                     <Grid item>
-                                        <img src={image} />
+                                        <img src={image} alt=""/>
                                     </Grid>
                                 </Grid>
                                 <Grid container justify="center">
