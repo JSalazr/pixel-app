@@ -66,7 +66,7 @@ class Layout extends React.Component {
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container justify="center">
-                            <ActionButton />
+                            <ActionButton setImage={this.setImage} image64={image}/>
                         </Grid>
                     </Grid>
                 </Grid>
