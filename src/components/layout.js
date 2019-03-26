@@ -23,6 +23,7 @@ class Layout extends React.Component {
         super(props);
         this.state = {
             image: "",
+            pixelSize: 5,
             imageSettings: {}
         };
     }
@@ -31,6 +32,12 @@ class Layout extends React.Component {
         this.setState({
             image: image64,
             imageSettings: {...imageSettings}
+        });
+    }
+
+    handleChange = field => value => {
+        this.setState({
+            [field]: value
         });
     }
 
