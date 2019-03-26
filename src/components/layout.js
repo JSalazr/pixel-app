@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import ActionButton from './actionButton';
+import UploadButton from './uploadButton';
 
 const styles = theme => ({
   root: {
@@ -34,6 +35,9 @@ class Layout extends React.Component {
                             <Grid container>
                                 <Grid item>
                                     Image will go here
+                                </Grid>
+                                <Grid item>
+                                    <UploadButton />
                                 </Grid>
                             </Grid>
                         </Paper>
