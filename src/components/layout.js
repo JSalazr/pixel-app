@@ -74,6 +74,7 @@ class Layout extends React.Component {
 
     showSnackbar = (message) => {
         this.setState({
+            isLoading: false,
             snackBarMessage: message,
             showSnackbar: true
         });
@@ -123,7 +124,14 @@ class Layout extends React.Component {
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container justify="center">
-                            <ActionButton setImage={this.setImage} image64={image} pixelSize={pixelSize} imageSettings={imageSettings} setLoadingTrue={this.setLoadingTrue}/>
+                            <ActionButton 
+                                setImage={this.setImage} 
+                                image64={image} 
+                                pixelSize={pixelSize} 
+                                imageSettings={imageSettings} 
+                                setLoadingTrue={this.setLoadingTrue} 
+                                showSnackbar={this.showSnackbar}
+                            />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -138,7 +146,7 @@ class Layout extends React.Component {
                     ContentProps={{
                         'aria-describedby': 'message-id',
                     }}
-                    message={<span id="message-id">{snackBarMessage}}</span>}
+                    message={<span id="message-id">{snackBarMessage}</span>}
                 />
             </div>    
         );

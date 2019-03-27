@@ -14,10 +14,12 @@ const styles = theme => ({
     const { classes } = props;
 
     const pixelateImage = () => {
-        const { image64, pixelSize, imageSettings, setImage, setLoadingTrue } = props;
+        const { image64, pixelSize, imageSettings, setImage, setLoadingTrue, showSnackbar } = props;
         setLoadingTrue();
         PixelateImage(image64, pixelSize, imageSettings).then((pixelatedImage) => {
             setImage(pixelatedImage, imageSettings);
+        }).catch(() => {
+          	showSnackbar("There was an error with the request.");
         });
     }
 
@@ -34,7 +36,8 @@ const styles = theme => ({
     pixelSize: PropTypes.number.isRequired,
     imageSettings: PropTypes.object.isRequired,
     setLoadingTrue: PropTypes.func.isRequired,
-    setImage: PropTypes.func.isRequired
+	setImage: PropTypes.func.isRequired,
+	showSnackbar: PropTypes.func.isRequired
   };
   
   export default withStyles(styles)(ActionButton);

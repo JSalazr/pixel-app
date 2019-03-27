@@ -22,7 +22,6 @@ function UploadButton(props) {
     }
 
     const convertToBase64 = () => {
-        console.log("testing");
         setImage('', {
             x: 0,
             y: 0,

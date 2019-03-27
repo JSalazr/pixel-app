@@ -15,15 +15,33 @@ const styles = theme => ({
 });
 
 class ImageSettings extends React.Component {  
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            errorText: ''
+        };
+    }
     
     handlePixelSizeChange = (e) => {
-        this.props.setPixelSize(parseInt(e.target.value));
+        if(e.target.value.length === 0)
+            this.setState({
+                errorText: "testing",
+                error: true
+            });
+        else{
+            this.setState({
+                errorText: "",
+                error: false
+            });
+            this.props.setPixelSize(e.target.value.length === 0 ? NaN : parseInt(e.target.value));
+        }
     }
 
     handleImageSettingsChange = (e, field) => {
         this.props.setImageSettings({
             ...this.props.imageSettings,
-            [field]: parseInt(e.target.value)
+            [field]: e.target.value.length === 0 ? '' : parseInt(e.target.value)
         });
     }
 
@@ -31,12 +49,14 @@ class ImageSettings extends React.Component {
       const { classes, imageSettings, pixelSize } = this.props;
   
       return (
-        <form noValidate autoComplete="off">
+        <form autoComplete="off">
             <Grid container className={classes.root} spacing={16} direction="row" justify="center">
                 <Grid item xs={4}>
                     <TextField
                         id="pixel-size"
                         label="Pixel Size"
+                        helperText = {this.state.errorText}
+                        error={this.state.error}
                         value={pixelSize}
                         onChange={(e) => this.handlePixelSizeChange(e)}
                         type="number"
