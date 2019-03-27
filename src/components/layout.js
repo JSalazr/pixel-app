@@ -13,8 +13,14 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
   },
+  imageContainer: {
+    justifyContent: 'center',
+    width: '80%',
+  },
   image: {
-    width: '50%',
+    width: '100%',
+    display: 'inline-block',
+    padding: theme.spacing.unit * 2
   },
   control: {
     padding: theme.spacing.unit * 2,
@@ -70,15 +76,15 @@ class Layout extends React.Component {
         return (
             <div>
                 <Grid container className={classes.root} spacing={16}>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} lg={12}>
                         <Grid container justify="center">
-                            <Paper className={classes.image}>
+                            <Paper className={classes.imageContainer}>
                                 <Grid container justify="center">
                                     <Grid item>
                                         <Mayre of={
                                             <CircularProgress />
                                         } or={
-                                            <img src={image} alt=""/>
+                                            <img src={image} alt="" className={classes.image}/>
                                         } when={isLoading} />
                                     </Grid>
                                 </Grid>

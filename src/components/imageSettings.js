@@ -2,22 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
     textField: {
       marginLeft: theme.spacing.unit,
       marginRight: theme.spacing.unit,
-      width: 200,
     },
-    dense: {
-      marginTop: 19,
-    },
-    menu: {
-      width: 200,
+    root: {
+        flexGrow: 1,
     },
 });
 
@@ -38,67 +31,87 @@ class ImageSettings extends React.Component {
       const { classes, imageSettings, pixelSize } = this.props;
   
       return (
-        <form className={classes.container} noValidate autoComplete="off">
-            <TextField
-                id="pixel-size"
-                label="Pixel Size"
-                value={pixelSize}
-                onChange={(e) => this.handlePixelSizeChange(e)}
-                type="number"
-                className={classes.textField}
-                InputLabelProps={{
-                shrink: true,
-                }}
-                margin="normal"
-            />
-            <TextField
-                id="x"
-                label="X Start Position"
-                value={imageSettings.x}
-                onChange={(e) => this.handleImageSettingsChange(e, 'x')}
-                type="number"
-                className={classes.textField}
-                InputLabelProps={{
-                shrink: true,
-                }}
-                margin="normal"
-            />
-            <TextField
-                id="xSize"
-                label="X Size"
-                value={imageSettings.xSize}
-                onChange={(e) => this.handleImageSettingsChange(e, 'xSize')}
-                type="number"
-                className={classes.textField}
-                InputLabelProps={{
-                shrink: true,
-                }}
-                margin="normal"
-            />
-            <TextField
-                id="y"
-                label="Y Start Position"
-                value={imageSettings.y}
-                onChange={(e) => this.handleImageSettingsChange(e, 'y')}
-                type="number"
-                className={classes.textField}
-                InputLabelProps={{
-                shrink: true,
-                }}
-                margin="normal"
-            />
-            <TextField
-                id="ySize"
-                label="Y Size"
-                value={imageSettings.ySize}
-                onChange={(e) => this.handleImageSettingsChange(e, 'ySize')}
-                type="number"
-                className={classes.textField}
-                InputLabelProps={{
-                shrink: true,
-                }}
-                margin="normal"
-            />
+        <form noValidate autoComplete="off">
+            <Grid container className={classes.root} spacing={16} direction="row" justify="center">
+                <Grid item xs={4}>
+                    <TextField
+                        id="pixel-size"
+                        label="Pixel Size"
+                        value={pixelSize}
+                        onChange={(e) => this.handlePixelSizeChange(e)}
+                        type="number"
+                        className={classes.textField}
+                        InputLabelProps={{
+                        shrink: true,
+                        }}
+                        margin="normal"
+                    />
+                </Grid>
+                <Grid item xs={4}>
+                    <Grid container >
+                        <Grid item>
+                            <TextField
+                                id="x"
+                                label="Pixelation Area X Position"
+                                value={imageSettings.x}
+                                onChange={(e) => this.handleImageSettingsChange(e, 'x')}
+                                type="number"
+                                className={classes.textField}
+                                InputLabelProps={{
+                                shrink: true,
+                                }}
+                                margin="normal"
+                            />
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                id="xSize"
+                                label="Pixelation Area Width"
+                                value={imageSettings.xSize}
+                                onChange={(e) => this.handleImageSettingsChange(e, 'xSize')}
+                                type="number"
+                                className={classes.textField}
+                                InputLabelProps={{
+                                shrink: true,
+                                }}
+                                margin="normal"
+                            />
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid item xs={4}>
+                    <Grid container >
+                        <Grid item>
+                            <TextField
+                                id="y"
+                                label="Pixelation Area Y Position"
+                                value={imageSettings.y}
+                                onChange={(e) => this.handleImageSettingsChange(e, 'y')}
+                                type="number"
+                                className={classes.textField}
+                                InputLabelProps={{
+                                shrink: true,
+                                }}
+                                margin="normal"
+                            />
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                id="ySize"
+                                label="Pixelation Area Height"
+                                value={imageSettings.ySize}
+                                onChange={(e) => this.handleImageSettingsChange(e, 'ySize')}
+                                type="number"
+                                className={classes.textField}
+                                InputLabelProps={{
+                                shrink: true,
+                                }}
+                                margin="normal"
+                            />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
         </form>
       );
     }
