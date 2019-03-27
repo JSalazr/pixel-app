@@ -27,6 +27,11 @@ class ImageSettings extends React.Component {
             ySizeError: false
         };
     }
+
+    validateForm = () => {
+        const { pixelSizeError, xError, yError, xSizeError, ySizeError} = this.state;
+        return !pixelSizeError && !xError && !yError && !xSizeError && !ySizeError;
+    }
     
     handlePixelSizeChange = (e) => {
         if(e.target.value.length === 0)
@@ -39,6 +44,7 @@ class ImageSettings extends React.Component {
             });
             this.props.setPixelSize(parseInt(e.target.value));
         }
+        this.props.setFormValidation(!this.validateForm());
     }
 
     handleImageSettingsChange = (e, field) => {
@@ -55,6 +61,7 @@ class ImageSettings extends React.Component {
                 [field]: e.target.value.length === 0 ? '' : parseInt(e.target.value)
             });
         }
+        this.props.setFormValidation(!this.validateForm());
     }
 
     render() {
@@ -163,7 +170,8 @@ class ImageSettings extends React.Component {
     imageSettings: PropTypes.object.isRequired,
     pixelSize: PropTypes.number.isRequired,
     setPixelSize: PropTypes.func.isRequired,
-    setImageSettings: PropTypes.func.isRequired
+    setImageSettings: PropTypes.func.isRequired,
+    setFormValidation: PropTypes.func.isRequired,
   };
   
   export default withStyles(styles)(ImageSettings);

@@ -14,13 +14,17 @@ const styles = theme => ({
     const { classes } = props;
 
     const pixelateImage = () => {
-        const { image64, pixelSize, imageSettings, setImage, setLoadingTrue, showSnackbar } = props;
-        setLoadingTrue();
-        PixelateImage(image64, pixelSize, imageSettings).then((pixelatedImage) => {
-            setImage(pixelatedImage, imageSettings);
-        }).catch(() => {
-          	showSnackbar("There was an error with the request.");
-        });
+		const { image64, pixelSize, imageSettings, setImage, setLoadingTrue, showSnackbar, formValidation } = props;
+		if(!formValidation){
+			showSnackbar("Image settings are invalid.");
+		}else{
+			setLoadingTrue();
+			PixelateImage(image64, pixelSize, imageSettings).then((pixelatedImage) => {
+				setImage(pixelatedImage, imageSettings);
+			}).catch(() => {
+				showSnackbar("There was an error with the request.");
+			});
+		}
     }
 
     return (
@@ -37,7 +41,8 @@ const styles = theme => ({
     imageSettings: PropTypes.object.isRequired,
     setLoadingTrue: PropTypes.func.isRequired,
 	setImage: PropTypes.func.isRequired,
-	showSnackbar: PropTypes.func.isRequired
+	showSnackbar: PropTypes.func.isRequired,
+	formValidation: PropTypes.bool.isRequired
   };
   
   export default withStyles(styles)(ActionButton);

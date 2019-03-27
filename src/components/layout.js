@@ -42,7 +42,8 @@ class Layout extends React.Component {
             },
             isLoading: false,
             showSnackbar: false,
-            snackBarMessage: ''
+            snackBarMessage: '',
+            formValidation: true
         };
     }
 
@@ -86,9 +87,15 @@ class Layout extends React.Component {
         });
     } 
 
+    setFormValidation = (value) => {
+        this.setState({
+            formValidation: value
+        });
+    } 
+
     render() {
         const { classes } = this.props;
-        const { image, pixelSize, imageSettings, isLoading, showSnackbar, snackBarMessage } = this.state;
+        const { image, pixelSize, imageSettings, isLoading, showSnackbar, snackBarMessage, formValidation } = this.state;
 
         return (
             <div>
@@ -117,7 +124,13 @@ class Layout extends React.Component {
                         <Paper className={classes.control}>
                             <Grid container justify="center">
                                 <Grid item>
-                                    <ImageSettings setPixelSize={this.setPixelSize} setImageSettings={this.setImageSettings} pixelSize={pixelSize} imageSettings={imageSettings} />
+                                    <ImageSettings 
+                                        setPixelSize={this.setPixelSize} 
+                                        setImageSettings={this.setImageSettings} 
+                                        pixelSize={pixelSize} 
+                                        imageSettings={imageSettings}
+                                        setFormValidation={this.setFormValidation}
+                                    />
                                 </Grid>
                             </Grid>
                         </Paper>
@@ -131,6 +144,7 @@ class Layout extends React.Component {
                                 imageSettings={imageSettings} 
                                 setLoadingTrue={this.setLoadingTrue} 
                                 showSnackbar={this.showSnackbar}
+                                formValidation={formValidation}
                             />
                         </Grid>
                     </Grid>
