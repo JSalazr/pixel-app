@@ -20,6 +20,7 @@ class ImageSettings extends React.Component {
         super(props);
         this.state = {
             emptyText: "Field can't be empty.",
+            width: props.imageSettings.xSize,
             pixelSizeError: false,
             xError: false,
             yError: false,
@@ -30,7 +31,7 @@ class ImageSettings extends React.Component {
 
     validateForm = () => {
         const { pixelSizeError, xError, yError, xSizeError, ySizeError} = this.state;
-        return !pixelSizeError && !xError && !yError && !xSizeError && !ySizeError;
+        return pixelSizeError && xError && yError && xSizeError && ySizeError;
     }
     
     handlePixelSizeChange = (e) => {
@@ -66,7 +67,7 @@ class ImageSettings extends React.Component {
 
     render() {
       const { classes, imageSettings, pixelSize } = this.props;
-      const { emptyText, pixelSizeError, xError, yError, xSizeError, ySizeError} = this.state;
+      const { emptyText, pixelSizeError, xError, yError, xSizeError, ySizeError, width} = this.state;
   
       return (
         <form autoComplete="off">
@@ -111,7 +112,7 @@ class ImageSettings extends React.Component {
                                 label="Pixelation Area Width"
                                 helperText = {xSizeError ? emptyText : ""}
                                 error={xSizeError}
-                                defaultValue={imageSettings.xSize}
+                                defaultValue={width}
                                 onChange={(e) => this.handleImageSettingsChange(e, 'xSize')}
                                 type="number"
                                 className={classes.textField}

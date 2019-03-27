@@ -41,7 +41,7 @@ function UploadButton(props) {
 					xSize: this.width,
 					ySize: this.height
 				};
-                setImage(reader.result, settings);
+                setImage(reader.result, settings, this.width, this.height);
             }
         }
     }

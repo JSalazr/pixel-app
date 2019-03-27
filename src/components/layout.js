@@ -26,6 +26,10 @@ const styles = theme => ({
   control: {
     padding: theme.spacing.unit * 2,
   },
+  dimensions: {
+      fontSize: '11px',
+      fontStyle: 'italic'
+  }
 });
 
 class Layout extends React.Component {
@@ -40,6 +44,8 @@ class Layout extends React.Component {
                 xSize: 0,
                 ySize: 0
             },
+            width: 0,
+            height: 0,
             isLoading: false,
             showSnackbar: false,
             snackBarMessage: '',
@@ -47,9 +53,11 @@ class Layout extends React.Component {
         };
     }
 
-    setImage = (image64, imageSettings) => {
+    setImage = (image64, imageSettings, width, height) => {
         this.setState({
             image: image64,
+            width: width,
+            height: height,
             imageSettings: {...imageSettings},
             isLoading: false
         });
@@ -95,7 +103,7 @@ class Layout extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { image, pixelSize, imageSettings, isLoading, showSnackbar, snackBarMessage, formValidation } = this.state;
+        const { image, pixelSize, imageSettings, isLoading, showSnackbar, snackBarMessage, formValidation, width, height } = this.state;
 
         return (
             <div>
@@ -110,6 +118,11 @@ class Layout extends React.Component {
                                         } or={
                                             <img src={image} alt="" className={classes.image}/>
                                         } when={isLoading} />
+                                    </Grid>
+                                </Grid>
+                                <Grid container justify="center">
+                                    <Grid item>
+                                        <p className={classes.dimensions}>Width: {width}, Height: {height} </p>
                                     </Grid>
                                 </Grid>
                                 <Grid container justify="center">
