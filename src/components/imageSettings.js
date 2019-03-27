@@ -19,22 +19,25 @@ class ImageSettings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            errorText: ''
+            emptyText: "Field can't be empty.",
+            pixelSizeError: false,
+            xError: false,
+            yError: false,
+            widthError: false,
+            heightError: false
         };
     }
     
     handlePixelSizeChange = (e) => {
         if(e.target.value.length === 0)
             this.setState({
-                errorText: "testing",
-                error: true
+                pixelSizeError: true
             });
         else{
             this.setState({
-                errorText: "",
-                error: false
+                pixelSizeError: false
             });
-            this.props.setPixelSize(e.target.value.length === 0 ? NaN : parseInt(e.target.value));
+            this.props.setPixelSize(parseInt(e.target.value));
         }
     }
 
@@ -47,6 +50,7 @@ class ImageSettings extends React.Component {
 
     render() {
       const { classes, imageSettings, pixelSize } = this.props;
+      const { emptyText, pixelSizeError, xError, yError, widthError, heightError} = this.state;
   
       return (
         <form autoComplete="off">
@@ -55,9 +59,9 @@ class ImageSettings extends React.Component {
                     <TextField
                         id="pixel-size"
                         label="Pixel Size"
-                        helperText = {this.state.errorText}
-                        error={this.state.error}
-                        value={pixelSize}
+                        helperText = {pixelSizeError ? emptyText : ""}
+                        error={pixelSizeError}
+                        defaultValue={pixelSize}
                         onChange={(e) => this.handlePixelSizeChange(e)}
                         type="number"
                         className={classes.textField}
