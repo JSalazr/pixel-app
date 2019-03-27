@@ -15,29 +15,69 @@ const styles = theme => ({
 });
 
 class ImageSettings extends React.Component {  
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            emptyText: "Field can't be empty.",
+            pixelSizeError: false,
+            xError: false,
+            yError: false,
+            xSizeError: false,
+            ySizeError: false
+        };
+    }
+
+    validateForm = () => {
+        const { pixelSizeError, xError, yError, xSizeError, ySizeError} = this.state;
+        return !pixelSizeError && !xError && !yError && !xSizeError && !ySizeError;
+    }
     
     handlePixelSizeChange = (e) => {
-        this.props.setPixelSize(parseInt(e.target.value));
+        if(e.target.value.length === 0)
+            this.setState({
+                pixelSizeError: true
+            });
+        else{
+            this.setState({
+                pixelSizeError: false
+            });
+            this.props.setPixelSize(parseInt(e.target.value));
+        }
+        this.props.setFormValidation(!this.validateForm());
     }
 
     handleImageSettingsChange = (e, field) => {
-        this.props.setImageSettings({
-            ...this.props.imageSettings,
-            [field]: parseInt(e.target.value)
-        });
+        if(e.target.value.length === 0)
+            this.setState({
+                [field+"Error"]: true
+            });
+        else{
+            this.setState({
+                [field+"Error"]: false
+            });
+            this.props.setImageSettings({
+                ...this.props.imageSettings,
+                [field]: e.target.value.length === 0 ? '' : parseInt(e.target.value)
+            });
+        }
+        this.props.setFormValidation(!this.validateForm());
     }
 
     render() {
       const { classes, imageSettings, pixelSize } = this.props;
+      const { emptyText, pixelSizeError, xError, yError, xSizeError, ySizeError} = this.state;
   
       return (
-        <form noValidate autoComplete="off">
+        <form autoComplete="off">
             <Grid container className={classes.root} spacing={16} direction="row" justify="center">
                 <Grid item xs={4}>
                     <TextField
                         id="pixel-size"
                         label="Pixel Size"
-                        value={pixelSize}
+                        helperText = {pixelSizeError ? emptyText : ""}
+                        error={pixelSizeError}
+                        defaultValue={pixelSize}
                         onChange={(e) => this.handlePixelSizeChange(e)}
                         type="number"
                         className={classes.textField}
@@ -53,7 +93,9 @@ class ImageSettings extends React.Component {
                             <TextField
                                 id="x"
                                 label="Pixelation Area X Position"
-                                value={imageSettings.x}
+                                helperText = {xError ? emptyText : ""}
+                                error={xError}
+                                defaultValue={imageSettings.x}
                                 onChange={(e) => this.handleImageSettingsChange(e, 'x')}
                                 type="number"
                                 className={classes.textField}
@@ -67,7 +109,9 @@ class ImageSettings extends React.Component {
                             <TextField
                                 id="xSize"
                                 label="Pixelation Area Width"
-                                value={imageSettings.xSize}
+                                helperText = {xSizeError ? emptyText : ""}
+                                error={xSizeError}
+                                defaultValue={imageSettings.xSize}
                                 onChange={(e) => this.handleImageSettingsChange(e, 'xSize')}
                                 type="number"
                                 className={classes.textField}
@@ -85,7 +129,9 @@ class ImageSettings extends React.Component {
                             <TextField
                                 id="y"
                                 label="Pixelation Area Y Position"
-                                value={imageSettings.y}
+                                helperText = {yError ? emptyText : ""}
+                                error={yError}
+                                defaultValue={imageSettings.y}
                                 onChange={(e) => this.handleImageSettingsChange(e, 'y')}
                                 type="number"
                                 className={classes.textField}
@@ -99,7 +145,9 @@ class ImageSettings extends React.Component {
                             <TextField
                                 id="ySize"
                                 label="Pixelation Area Height"
-                                value={imageSettings.ySize}
+                                helperText = {ySizeError ? emptyText : ""}
+                                error={ySizeError}
+                                defaultValue={imageSettings.ySize}
                                 onChange={(e) => this.handleImageSettingsChange(e, 'ySize')}
                                 type="number"
                                 className={classes.textField}
@@ -122,7 +170,8 @@ class ImageSettings extends React.Component {
     imageSettings: PropTypes.object.isRequired,
     pixelSize: PropTypes.number.isRequired,
     setPixelSize: PropTypes.func.isRequired,
-    setImageSettings: PropTypes.func.isRequired
+    setImageSettings: PropTypes.func.isRequired,
+    setFormValidation: PropTypes.func.isRequired,
   };
   
   export default withStyles(styles)(ImageSettings);

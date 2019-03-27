@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
 import ActionButton from './actionButton';
 import UploadButton from './uploadButton';
 import ImageSettings from './imageSettings';
@@ -18,7 +19,7 @@ const styles = theme => ({
     width: '80%',
   },
   image: {
-    width: '100%',
+    width: '98%',
     display: 'inline-block',
     padding: theme.spacing.unit * 2
   },
@@ -39,7 +40,10 @@ class Layout extends React.Component {
                 xSize: 0,
                 ySize: 0
             },
-            isLoading: false
+            isLoading: false,
+            showSnackbar: false,
+            snackBarMessage: '',
+            formValidation: true
         };
     }
 
@@ -69,9 +73,29 @@ class Layout extends React.Component {
         });
     }
 
+    showSnackbar = (message) => {
+        this.setState({
+            isLoading: false,
+            snackBarMessage: message,
+            showSnackbar: true
+        });
+    }
+
+    closeSnackbar = () => {
+        this.setState({
+            showSnackbar: false
+        });
+    } 
+
+    setFormValidation = (value) => {
+        this.setState({
+            formValidation: value
+        });
+    } 
+
     render() {
         const { classes } = this.props;
-        const { image, pixelSize, imageSettings, isLoading } = this.state;
+        const { image, pixelSize, imageSettings, isLoading, showSnackbar, snackBarMessage, formValidation } = this.state;
 
         return (
             <div>
@@ -100,17 +124,44 @@ class Layout extends React.Component {
                         <Paper className={classes.control}>
                             <Grid container justify="center">
                                 <Grid item>
-                                    <ImageSettings setPixelSize={this.setPixelSize} setImageSettings={this.setImageSettings} pixelSize={pixelSize} imageSettings={imageSettings} />
+                                    <ImageSettings 
+                                        setPixelSize={this.setPixelSize} 
+                                        setImageSettings={this.setImageSettings} 
+                                        pixelSize={pixelSize} 
+                                        imageSettings={imageSettings}
+                                        setFormValidation={this.setFormValidation}
+                                    />
                                 </Grid>
                             </Grid>
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container justify="center">
-                            <ActionButton setImage={this.setImage} image64={image} pixelSize={pixelSize} imageSettings={imageSettings} setLoadingTrue={this.setLoadingTrue}/>
+                            <ActionButton 
+                                setImage={this.setImage} 
+                                image64={image} 
+                                pixelSize={pixelSize} 
+                                imageSettings={imageSettings} 
+                                setLoadingTrue={this.setLoadingTrue} 
+                                showSnackbar={this.showSnackbar}
+                                formValidation={formValidation}
+                            />
                         </Grid>
                     </Grid>
                 </Grid>
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    open={showSnackbar}
+                    autoHideDuration={6000}
+                    onClose={this.closeSnackbar}
+                    ContentProps={{
+                        'aria-describedby': 'message-id',
+                    }}
+                    message={<span id="message-id">{snackBarMessage}</span>}
+                />
             </div>    
         );
     }
