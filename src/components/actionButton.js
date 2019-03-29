@@ -15,8 +15,8 @@ const styles = theme => ({
 
     const pixelateImage = () => {
 		const { image64, pixelSize, imageSettings, setImage, setLoading, showSnackbar, formValidation } = props;
-		if(!formValidation){
-			showSnackbar("Image settings are invalid.");
+		if(!formValidation || image64 === ""){
+			showSnackbar("Image missing or settings are invalid.");
 		}else{
 			setLoading(true);
 			PixelateImage(image64, pixelSize, imageSettings).then((pixelatedImage) => {

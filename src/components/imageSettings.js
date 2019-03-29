@@ -6,8 +6,8 @@ import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
     textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
     },
     root: {
         flexGrow: 1,
@@ -31,8 +31,6 @@ class ImageSettings extends React.Component {
 
     validateForm = () => {
         const { pixelSizeError, xError, yError, xSizeError, ySizeError} = this.state;
-        console.log(!pixelSizeError && !xError && !yError && !xSizeError && !ySizeError);
-        console.log(pixelSizeError, xError, yError, xSizeError, ySizeError);
         this.props.setFormValidation(!pixelSizeError && !xError && !yError && !xSizeError && !ySizeError); 
     }
     
@@ -81,6 +79,7 @@ class ImageSettings extends React.Component {
                         defaultValue={pixelSize}
                         onChange={(e) => this.handlePixelSizeChange(e)}
                         type="number"
+                        inputProps={{ min: "0", step: "1" }}
                         className={classes.textField}
                         InputLabelProps={{
                         shrink: true,
@@ -99,6 +98,7 @@ class ImageSettings extends React.Component {
                                 defaultValue={imageSettings.x}
                                 onChange={(e) => this.handleImageSettingsChange(e, 'x')}
                                 type="number"
+                                inputProps={{ min: "0", step: "1" }}
                                 className={classes.textField}
                                 InputLabelProps={{
                                 shrink: true,
@@ -115,6 +115,7 @@ class ImageSettings extends React.Component {
                                 defaultValue={width}
                                 onChange={(e) => this.handleImageSettingsChange(e, 'xSize')}
                                 type="number"
+                                inputProps={{ min: "0", step: "1" }}
                                 className={classes.textField}
                                 InputLabelProps={{
                                 shrink: true,
@@ -135,6 +136,7 @@ class ImageSettings extends React.Component {
                                 defaultValue={imageSettings.y}
                                 onChange={(e) => this.handleImageSettingsChange(e, 'y')}
                                 type="number"
+                                inputProps={{ min: "0", step: "1" }}
                                 className={classes.textField}
                                 InputLabelProps={{
                                 shrink: true,
@@ -151,6 +153,7 @@ class ImageSettings extends React.Component {
                                 defaultValue={imageSettings.ySize}
                                 onChange={(e) => this.handleImageSettingsChange(e, 'ySize')}
                                 type="number"
+                                inputProps={{ min: "0", step: "1" }}
                                 className={classes.textField}
                                 InputLabelProps={{
                                 shrink: true,
