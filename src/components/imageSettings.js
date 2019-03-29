@@ -31,7 +31,8 @@ class ImageSettings extends React.Component {
 
     validateForm = () => {
         const { pixelSizeError, xError, yError, xSizeError, ySizeError} = this.state;
-        return pixelSizeError && xError && yError && xSizeError && ySizeError;
+        console.log(pixelSizeError && xError && yError && xSizeError && ySizeError);
+        this.props.setFormValidation(!(pixelSizeError && xError && yError && xSizeError && ySizeError)); 
     }
     
     handlePixelSizeChange = (e) => {
@@ -45,18 +46,18 @@ class ImageSettings extends React.Component {
             });
             this.props.setPixelSize(parseInt(e.target.value));
         }
-        this.props.setFormValidation(!this.validateForm());
+        this.validateForm();
     }
 
     handleImageSettingsChange = (e, field) => {
         if(e.target.value.length === 0)
             this.setState({
                 [field+"Error"]: true
-            });
+            }, this.validateForm);
         else{
             this.setState({
                 [field+"Error"]: false
-            });
+            }, this.validateForm);
             this.props.setImageSettings({
                 ...this.props.imageSettings,
                 [field]: e.target.value.length === 0 ? '' : parseInt(e.target.value)
