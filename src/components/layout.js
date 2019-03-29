@@ -110,7 +110,10 @@ class Layout extends React.Component {
     render() {
         const { classes } = this.props;
         const { image, pixelSize, imageSettings, isLoading, showSnackbar, snackBarMessage, formValidation, width, height } = this.state;
-
+        const setLoading = this.setValue('isLoading');
+        const setPixelSize = this.setValue('pixelSize');
+        const setImageSettings = this.setValue('imageSettings');
+        const setFormValidation = this.setValue('formValidation');
         return (
             <div>
                 <Grid container className={classes.root} spacing={16}>
@@ -144,11 +147,11 @@ class Layout extends React.Component {
                             <Grid container justify="center">
                                 <Grid item>
                                     <ImageSettings 
-                                        setPixelSize={this.setValue('pixelSize')} 
-                                        setImageSettings={this.setValue('imageSettings')} 
+                                        setPixelSize={setPixelSize} 
+                                        setImageSettings={setImageSettings} 
                                         pixelSize={pixelSize} 
                                         imageSettings={imageSettings}
-                                        setFormValidation={this.setValue('formValidation')}
+                                        setFormValidation={setFormValidation}
                                     />
                                 </Grid>
                             </Grid>
@@ -161,7 +164,7 @@ class Layout extends React.Component {
                                 image64={image} 
                                 pixelSize={pixelSize} 
                                 imageSettings={imageSettings} 
-                                setLoading={this.setValue('isLoading')} 
+                                setLoading={setLoading} 
                                 showSnackbar={this.showSnackbar}
                                 formValidation={formValidation}
                             />

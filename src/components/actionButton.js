@@ -14,7 +14,7 @@ const styles = theme => ({
     const { classes } = props;
 
     const pixelateImage = () => {
-		const { image64, pixelSize, imageSettings, setImage, setLoadingTrue, showSnackbar, formValidation } = props;
+		const { image64, pixelSize, imageSettings, setImage, setLoading, showSnackbar, formValidation } = props;
 		if(!formValidation){
 			showSnackbar("Image settings are invalid.");
 		}else{
