@@ -63,21 +63,39 @@ class Layout extends React.Component {
         });
     }
 
-    setLoadingTrue = () => {
-        this.setState({
-            isLoading: true
-        });
-    }
+    // setLoadingTrue = () => {
+    //     this.setState({
+    //         isLoading: true
+    //     });
+    // }
 
-    setPixelSize = (value) => {
-        this.setState({
-            pixelSize: value
-        });
-    }
+    // setPixelSize = (value) => {
+    //     this.setState({
+    //         pixelSize: value
+    //     });
+    // }
 
-    setImageSettings = (value) => {
+    // setImageSettings = (value) => {
+    //     this.setState({
+    //         imageSettings: value
+    //     });
+    // }
+
+    // closeSnackbar = () => {
+    //     this.setState({
+    //         showSnackbar: false
+    //     });
+    // } 
+
+    // setFormValidation = (value) => {
+    //     this.setState({
+    //         formValidation: value
+    //     });
+    // } 
+
+    setValue = (field) => (value) => {
         this.setState({
-            imageSettings: value
+            [field]: value
         });
     }
 
@@ -88,18 +106,6 @@ class Layout extends React.Component {
             showSnackbar: true
         });
     }
-
-    closeSnackbar = () => {
-        this.setState({
-            showSnackbar: false
-        });
-    } 
-
-    setFormValidation = (value) => {
-        this.setState({
-            formValidation: value
-        });
-    } 
 
     render() {
         const { classes } = this.props;
@@ -138,11 +144,11 @@ class Layout extends React.Component {
                             <Grid container justify="center">
                                 <Grid item>
                                     <ImageSettings 
-                                        setPixelSize={this.setPixelSize} 
-                                        setImageSettings={this.setImageSettings} 
+                                        setPixelSize={this.setValue('pixelSize')} 
+                                        setImageSettings={this.setValue('imageSettings')} 
                                         pixelSize={pixelSize} 
                                         imageSettings={imageSettings}
-                                        setFormValidation={this.setFormValidation}
+                                        setFormValidation={this.setValue('formValidation')}
                                     />
                                 </Grid>
                             </Grid>
@@ -155,7 +161,7 @@ class Layout extends React.Component {
                                 image64={image} 
                                 pixelSize={pixelSize} 
                                 imageSettings={imageSettings} 
-                                setLoadingTrue={this.setLoadingTrue} 
+                                setLoading={this.setValue('isLoading')} 
                                 showSnackbar={this.showSnackbar}
                                 formValidation={formValidation}
                             />
@@ -169,7 +175,7 @@ class Layout extends React.Component {
                     }}
                     open={showSnackbar}
                     autoHideDuration={6000}
-                    onClose={this.closeSnackbar}
+                    onClose={this.setValue('showSnackbar')(false)}
                     ContentProps={{
                         'aria-describedby': 'message-id',
                     }}

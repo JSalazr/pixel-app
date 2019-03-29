@@ -18,7 +18,7 @@ const styles = theme => ({
 		if(!formValidation){
 			showSnackbar("Image settings are invalid.");
 		}else{
-			setLoadingTrue();
+			setLoading(true);
 			PixelateImage(image64, pixelSize, imageSettings).then((pixelatedImage) => {
 				setImage(pixelatedImage, imageSettings);
 			}).catch(() => {
@@ -39,7 +39,7 @@ const styles = theme => ({
     image64: PropTypes.string.isRequired,
     pixelSize: PropTypes.number.isRequired,
     imageSettings: PropTypes.object.isRequired,
-    setLoadingTrue: PropTypes.func.isRequired,
+    setLoading: PropTypes.func.isRequired,
 	setImage: PropTypes.func.isRequired,
 	showSnackbar: PropTypes.func.isRequired,
 	formValidation: PropTypes.bool.isRequired
