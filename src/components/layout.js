@@ -110,10 +110,7 @@ class Layout extends React.Component {
     render() {
         const { classes } = this.props;
         const { image, pixelSize, imageSettings, isLoading, showSnackbar, snackBarMessage, formValidation, width, height } = this.state;
-        const setLoading = this.setValue('isLoading');
-        const setPixelSize = this.setValue('pixelSize');
-        const setImageSettings = this.setValue('imageSettings');
-        const setFormValidation = this.setValue('formValidation');
+
         return (
             <div>
                 <Grid container className={classes.root} spacing={16}>
@@ -147,11 +144,11 @@ class Layout extends React.Component {
                             <Grid container justify="center">
                                 <Grid item>
                                     <ImageSettings 
-                                        setPixelSize={setPixelSize} 
-                                        setImageSettings={setImageSettings} 
+                                        setPixelSize={this.setValue('pixelSize')} 
+                                        setImageSettings={this.setValue('imageSettings')} 
                                         pixelSize={pixelSize} 
                                         imageSettings={imageSettings}
-                                        setFormValidation={setFormValidation}
+                                        setFormValidation={this.setValue('formValidation')}
                                     />
                                 </Grid>
                             </Grid>
@@ -164,7 +161,7 @@ class Layout extends React.Component {
                                 image64={image} 
                                 pixelSize={pixelSize} 
                                 imageSettings={imageSettings} 
-                                setLoading={setLoading} 
+                                setLoading={this.setValue('isLoading')} 
                                 showSnackbar={this.showSnackbar}
                                 formValidation={formValidation}
                             />
@@ -178,7 +175,7 @@ class Layout extends React.Component {
                     }}
                     open={showSnackbar}
                     autoHideDuration={6000}
-                    onClose={this.setValue('showSnackbar')(false)}
+                    onClose={() => this.setValue('showSnackbar')(false)}
                     ContentProps={{
                         'aria-describedby': 'message-id',
                     }}
